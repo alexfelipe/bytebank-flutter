@@ -1,4 +1,3 @@
-import 'package:bytebank/model/models.dart';
 import 'package:flutter/material.dart';
 
 class Editor extends StatelessWidget {

@@ -1,23 +1,17 @@
 import 'package:bytebank/ui/screens/screens.dart';
 import 'package:flutter/material.dart';
 
-import 'model/models.dart';
+const telaInicial = '/';
 
-void main() => runApp(TelaInicial());
-
-class TelaInicial extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/': (context) => ListaTransferencias(),
-        '/form': (context) => FormularioTransferencia(
-            callback: (Transferencia transferenciaCriada) =>
-                print(transferenciaCriada))
-      },
+void main() => runApp(
+      MaterialApp(
+        initialRoute: telaInicial,
+        theme: ThemeData(
+          primaryColor: Colors.green,
+          accentColor: Colors.green[900],
+        ),
+        routes: {
+          telaInicial: (context) => ListaTransferencias(),
+        },
+      ),
     );
-  }
-
-}
