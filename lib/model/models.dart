@@ -1,11 +1,11 @@
 class Transferencia {
 
-  final int _numeroConta;
-  final double _valor;
+  final int numeroConta;
+  final double valor;
 
-  Transferencia(this._numeroConta, this._valor);
+  Transferencia(this.numeroConta, this.valor);
 
   @override
-  String toString() => "$_numeroConta - $_valor";
+  String toString() => "$numeroConta - $valor";
 
 }

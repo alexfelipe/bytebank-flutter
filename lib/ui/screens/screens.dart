@@ -3,8 +3,48 @@ import 'package:bytebank/ui/components/components.dart';
 import 'package:bytebank/util/funcoes.dart';
 import 'package:flutter/material.dart';
 
-class FormularioConta extends StatelessWidget {
+class ListaTransferencias extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => ListaTransferenciasState();
+}
 
+class ListaTransferenciasState extends State<ListaTransferencias> {
+  final List<Transferencia> transferencias = List();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Transferências"),
+      ),
+      body: ListView.builder(
+          itemCount: transferencias.length,
+          itemBuilder: (context, indice) {
+            final transferencia = transferencias[indice];
+            return ListTile(
+              onTap: () {},
+              leading: Icon(Icons.monetization_on),
+              title: Text(transferencia.valor.toString()),
+              subtitle: Text(transferencia.numeroConta.toString()),
+            );
+          }),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => FormularioTransferencia(
+                        callback: (transferenciaCriada) =>
+                            transferencias.add(transferenciaCriada),
+                      )));
+        },
+      ),
+    );
+  }
+}
+
+class FormularioTransferencia extends StatelessWidget {
   final quandoCriaTransferencia callback;
 
   final _contaController = TextEditingController();
@@ -13,11 +53,10 @@ class FormularioConta extends StatelessWidget {
   static const confirmar = "Confirmar";
   static const dadosDaTransferencia = "Dados da transferência";
 
-  FormularioConta({@required this.callback});
+  FormularioTransferencia({@required this.callback});
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(dadosDaTransferencia),
@@ -42,8 +81,9 @@ class FormularioConta extends StatelessWidget {
                 final valor = _valorController.text;
                 final conta = _contaController.text;
                 var transferenciaCriada =
-                Transferencia(int.tryParse(conta), double.tryParse(valor));
+                    Transferencia(int.tryParse(conta), double.tryParse(valor));
                 callback(transferenciaCriada);
+                Navigator.pop(context);
               },
             )
           ],
