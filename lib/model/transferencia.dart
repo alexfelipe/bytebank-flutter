@@ -1,9 +1,9 @@
 class Transferencia {
   final int numeroConta;
   final double valor;
-  final DateTime data = DateTime.now();
+  final int data;
 
-  Transferencia(this.numeroConta, this.valor);
+  const Transferencia([this.numeroConta, this.valor]) : data = numeroConta;
 
   @override
   String toString() => "$numeroConta - $valor";
