@@ -22,23 +22,31 @@ class ListaTransferenciasState extends State<ListaTransferencias> {
         title: const Text(_tituloAppBar),
       ),
       body: TransferenciasListView(transferencias: _transferencias),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          vaiParaFormulario(context);
-        },
+      floatingActionButton: Builder(
+        builder: (context) => FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            vaiParaFormulario(context, (transferencia) {
+              Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text('Transferência realizada!'),
+              ));
+            });
+          },
+        ),
       ),
     );
   }
 
-  void vaiParaFormulario(BuildContext context) {
+  void vaiParaFormulario(
+      BuildContext context, Function(Transferencia transferencia) quandoTransferenciaRecebida) {
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => FormularioTransferencia(
-              callback: (transferenciaRecebida) =>
-                  _transferencias.add(transferenciaRecebida),
-            )));
+                  callback: (transferenciaRecebida) {
+                    _transferencias.add(transferenciaRecebida);
+                    quandoTransferenciaRecebida(transferenciaRecebida);
+                  },
+                )));
   }
 }
-
