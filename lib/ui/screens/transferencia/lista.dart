@@ -31,14 +31,10 @@ class ListaTransferenciasState extends State<ListaTransferencias> {
     );
   }
 
-  void vaiParaFormulario(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => FormularioTransferencia(
-              callback: (transferenciaRecebida) =>
-                  _transferencias.add(transferenciaRecebida),
-            )));
+  void vaiParaFormulario(BuildContext context) async {
+    Transferencia transferenciaCriada = await Navigator.push(context,
+        MaterialPageRoute(builder: (context) => FormularioTransferencia()));
+    _transferencias.add(transferenciaCriada);
   }
-}
 
+}
