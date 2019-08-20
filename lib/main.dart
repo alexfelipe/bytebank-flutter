@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(Column(
-      textDirection: TextDirection.rtl,
-      children: <Widget>[
-        Text(
-          'Primeira transferência',
-          textDirection: TextDirection.ltr,
+void main() => runApp(MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Transferências'),
         ),
-        Text(
-          'Segunda transferência',
-          textDirection: TextDirection.ltr,
+        body: Column(
+          children: <Widget>[
+            Text(
+              'Transferência',
+            )
+          ],
         ),
-      ],
+      ),
     ));
