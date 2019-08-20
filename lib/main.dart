@@ -6,9 +6,21 @@ void main() => runApp(MaterialApp(
           title: Text('Transferências'),
         ),
         body: Column(
+          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            Text(
-              'Transferência',
+            Card(
+              child: ListTile(
+                leading: Icon(Icons.monetization_on),
+                title: Text('R\$ 100,00'),
+                subtitle: Text('1000'),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: Icon(Icons.monetization_on),
+                title: Text('R\$ 210,00'),
+                subtitle: Text('1001'),
+              ),
             )
           ],
         ),
