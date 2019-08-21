@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 void main() => runApp(BytebankApp());
 
@@ -25,52 +24,63 @@ class FormularioTransferencia extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
-            child: TextField(
-              controller: _controladorCampoNumeroConta,
-              style: TextStyle(
-                fontSize: 24.0,
-              ),
-              decoration: InputDecoration(
-                labelText: 'Número da conta',
-                hintText: '0000',
-              ),
-            ),
+          Editor(
+            rotulo: 'Número da conta',
+            dica: '0000',
+            controlador: _controladorCampoNumeroConta,
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
-            child: TextField(
-              controller: _controladorCampoValor,
-              style: TextStyle(
-                fontSize: 24.0,
-              ),
-              decoration: InputDecoration(
-                icon: Icon(Icons.monetization_on),
-                labelText: 'Valor',
-                hintText: '0.00',
-              ),
-            ),
-          ),
+          Editor(
+              rotulo: 'Valor',
+              dica: '0.00',
+              controlador: _controladorCampoValor,
+              icone: Icons.monetization_on),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: RaisedButton(
               child: Text('Confirmar'),
               onPressed: () {
-                final int conta =
-                    int.tryParse(_controladorCampoNumeroConta.text);
-                final double valor =
-                    double.tryParse(_controladorCampoValor.text);
-                print('conta $conta');
-                print('valor $valor');
-                if(conta != null && valor != null){
-                  final transferenciaCriada = Transferencia(valor, conta);
-                  print('transferência $transferenciaCriada');
-                }
+                criaTransferencia();
               },
             ),
           )
         ],
+      ),
+    );
+  }
+
+  void criaTransferencia() {
+    final int conta =
+        int.tryParse(_controladorCampoNumeroConta.text);
+    final double valor =
+        double.tryParse(_controladorCampoValor.text);
+    if (conta != null && valor != null) {
+      final transferenciaCriada = Transferencia(valor, conta);
+    }
+  }
+}
+
+class Editor extends StatelessWidget {
+  final TextEditingController controlador;
+  final String rotulo;
+  final String dica;
+  final IconData icone;
+
+  Editor({this.controlador, this.rotulo, this.dica, this.icone});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
+      child: TextField(
+        controller: controlador,
+        style: TextStyle(
+          fontSize: 24.0,
+        ),
+        decoration: InputDecoration(
+          icon: icone != null ? Icon(icone) : null,
+          labelText: rotulo,
+          hintText: dica,
+        ),
       ),
     );
   }
@@ -121,6 +131,4 @@ class Transferencia {
   String toString() {
     return 'Transferencia{valor: $valor, numeroConta: $numeroConta}';
   }
-
-
 }
