@@ -20,6 +20,7 @@ class ListaTransferencias extends StatelessWidget {
             return FormularioTransferencia();
           }));
           future.then((transferenciaRecebida) {
+            print(transferenciaRecebida);
             if (transferenciaRecebida != null) {
               _transferencias.add(transferenciaRecebida);
             }
