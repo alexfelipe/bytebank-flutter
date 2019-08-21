@@ -30,7 +30,8 @@ class FormularioTransferencia extends StatelessWidget {
             child: RaisedButton(
               child: Text('Confirmar'),
               onPressed: () {
-                criaTransferencia();
+                Transferencia transferenciaCriada = _criaTransferencia();
+                Navigator.pop(context, transferenciaCriada);
               },
             ),
           )
@@ -39,11 +40,12 @@ class FormularioTransferencia extends StatelessWidget {
     );
   }
 
-  void criaTransferencia() {
+  Transferencia _criaTransferencia() {
     final int conta = int.tryParse(_controladorCampoNumeroConta.text);
     final double valor = double.tryParse(_controladorCampoValor.text);
-    if (conta != null && valor != null) {
-      final transferenciaCriada = Transferencia(valor, conta);
+    if (conta == null || valor == null) {
+      return null;
     }
+    return Transferencia(valor, conta);
   }
 }

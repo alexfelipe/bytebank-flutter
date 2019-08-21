@@ -1,19 +1,38 @@
 import 'package:bytebank/models/transferencia.dart';
+import 'package:bytebank/screens/formulario.dart';
 import 'package:flutter/material.dart';
 
 class ListaTransferencias extends StatelessWidget {
+
+  final List<Transferencia> _transferencias = List();
+
   @override
   Widget build(BuildContext context) {
+    _transferencias.add(Transferencia(100.0, 1000));
     return Scaffold(
       appBar: AppBar(
         title: Text('Transferências'),
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          ItemTransferencia(Transferencia(100.0, 1000)),
-          ItemTransferencia(Transferencia(210.0, 1001)),
-        ],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Future<Transferencia> future = Navigator.push(context,
+              MaterialPageRoute(builder: (BuildContext context) {
+            return FormularioTransferencia();
+          }));
+          future.then((transferenciaRecebida) {
+            if (transferenciaRecebida != null) {
+              _transferencias.add(transferenciaRecebida);
+            }
+          });
+        },
+        child: Icon(Icons.add),
+      ),
+      body: ListView.builder(
+        itemCount: _transferencias.length,
+        itemBuilder: (BuildContext context, int index) {
+          final transferencia = _transferencias[index];
+          return ItemTransferencia(transferencia);
+        },
       ),
     );
   }
