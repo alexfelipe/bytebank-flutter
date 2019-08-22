@@ -2,13 +2,18 @@ import 'package:bytebank/models/transferencia.dart';
 import 'package:bytebank/screens/formulario.dart';
 import 'package:flutter/material.dart';
 
-class ListaTransferencias extends StatelessWidget {
+class ListaTransferencias extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return ListaTransferenciaState();
+  }
+}
 
+class ListaTransferenciaState extends State<ListaTransferencias> {
   final List<Transferencia> _transferencias = List();
 
   @override
   Widget build(BuildContext context) {
-    _transferencias.add(Transferencia(100.0, 1000));
     return Scaffold(
       appBar: AppBar(
         title: Text('Transferências'),
