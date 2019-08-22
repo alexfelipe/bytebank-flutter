@@ -2,14 +2,23 @@ import 'package:bytebank/components/editor.dart';
 import 'package:bytebank/models/transferencia.dart';
 import 'package:flutter/material.dart';
 
+const _rotuloCampoNumeroConta = 'Número da conta';
+const _tituloAppBar = 'Criando transferência';
+const _dicaCampoNumeroConta = '0000';
+const _dicaCampoValor = '0.00';
+const _rotuloCampoValor = 'Valor';
+const _textoBotaoConfirmar = 'Confirmar';
+
 class FormularioTransferencia extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() {
-    return FormularioTransferenciaState();
+    return _FormularioTransferenciaState();
   }
+
 }
 
-class FormularioTransferenciaState extends State<FormularioTransferencia> {
+class _FormularioTransferenciaState extends State<FormularioTransferencia> {
   final TextEditingController _controladorCampoNumeroConta =
       TextEditingController();
   final TextEditingController _controladorCampoValor = TextEditingController();
@@ -18,25 +27,25 @@ class FormularioTransferenciaState extends State<FormularioTransferencia> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Criando transferência'),
+        title: Text(_tituloAppBar),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Editor(
-              rotulo: 'Número da conta',
-              dica: '0000',
+              rotulo: _rotuloCampoNumeroConta,
+              dica: _dicaCampoNumeroConta,
               controlador: _controladorCampoNumeroConta,
             ),
             Editor(
-                rotulo: 'Valor',
-                dica: '0.00',
+                rotulo: _rotuloCampoValor,
+                dica: _dicaCampoValor,
                 controlador: _controladorCampoValor,
                 icone: Icons.monetization_on),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: RaisedButton(
-                child: Text('Confirmar'),
+                child: Text(_textoBotaoConfirmar),
                 onPressed: () {
                   Transferencia transferenciaCriada = _criaTransferencia();
                   Navigator.pop(context, transferenciaCriada);
